@@ -1,7 +1,7 @@
 from flask import Flask, render_template
 import os
 
-ip_list = ['8.8.8.8']
+ip_list = ['192.168.229.166']
 app = Flask(__name__)
 
 @app.route('/')
@@ -11,8 +11,8 @@ def index():
 @app.route('/my-link/')
 def my_link():
     for ip in ip_list:
-        response = os.popen(f"ping {ip}").read()
-        if "Received = 4" in response:
+        response = os.system('ping -n 4 192.168.229.166')
+        if "Received = 4":
             print(f"UP {ip} Ping Successful")
 
             return 'Ping Successful'
