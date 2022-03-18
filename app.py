@@ -1,7 +1,7 @@
 from flask import Flask, render_template
 import os
 
-ip_list = ['192.168.229.150']
+ip_list = ['192.168.229.166']
 app = Flask(__name__)
 
 @app.route('/')
