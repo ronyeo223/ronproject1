@@ -11,7 +11,7 @@ def index():
 @app.route('/my-link/')
 def my_link():
     for ip in ip_list:
-        response = os.system('ping -n 4 2.2.2.2')
+        response = os.system('ping -n 4 192.168.229.166')
         if "Received = 4":
             print(f"UP {ip} Ping Successful")
 
