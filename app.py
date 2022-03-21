@@ -8,7 +8,7 @@ app = Flask(__name__)
 def index():
   return render_template('index.html')
 
-@app.route('/my-link/')
+@app.route('/my-link/', methods = ['POST', 'GET'])
 def my_link():
     for ip in ip_list:
         response = os.system('ping -n 4 192.168.229.166')
