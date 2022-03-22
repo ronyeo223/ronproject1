@@ -1,7 +1,7 @@
 from flask import Flask, render_template
 import os
 
-ip_list = ['192.168.229.153']
+ip_list = ['192.168.229.158']
 app = Flask(__name__)
 
 @app.route('/')
@@ -11,7 +11,7 @@ def index():
 @app.route('/my-link/', methods = ['POST', 'GET'])
 def my_link():
     for ip in ip_list:
-        response = os.popen(f"ping {ip}").read()
+        response = os.system('ping -n 4 192.168.229.158')
         if "Received = 4":
             print(f"UP {ip} Ping Successful")
 
@@ -25,3 +25,5 @@ def my_link():
 if __name__ == '__main__':
   app.debug = True
   app.run(host="0.0.0.0")
+
+        
