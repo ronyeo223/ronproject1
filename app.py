@@ -1,4 +1,3 @@
-
 from flask import Flask, render_template
 import os
 import socket
@@ -8,7 +7,7 @@ app = Flask(__name__)
 
 s =socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-s.connect((socket.gethostname(), 1024))
+s.connect(("192.168.229.158", 1024))
 
 
 
@@ -39,3 +38,4 @@ def my_link():
 if __name__ == '__main__':
   app.debug = True
   app.run(host="0.0.0.0")
+
