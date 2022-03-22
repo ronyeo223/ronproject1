@@ -10,14 +10,13 @@ def index():
 
 @app.route('/my-link/', methods = ['POST', 'GET'])
 def my_link():
-    for ip in ip_list:
         response = os.system('ping -n 4 192.168.229.158')
         if "Received = 4":
-            print(f"UP {ip} Ping Successful")
+            print(f"UP 192.168.229.158 Ping Successful")
 
             return 'Ping Successful'
         else:
-            print(f"DOWN {ip} Ping Unsuccessful")  
+            print(f"DOWN 192.168.229.158 Ping Unsuccessful")  
 
             return 'Ping Unsuccessful'
         
@@ -25,5 +24,3 @@ def my_link():
 if __name__ == '__main__':
   app.debug = True
   app.run(host="0.0.0.0")
-
-        
