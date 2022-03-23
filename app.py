@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 s =socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-s.bind(("192.168.229.170", 1024))
+s.bind(("https://certisproject1222222222.herokuapp.com/", 1024))
 s.listen(5)
 
 
@@ -38,3 +38,4 @@ if __name__ == '__main__':
   app.debug = True
   app.run(host="0.0.0.0")
 
+        
