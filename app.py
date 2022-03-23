@@ -17,7 +17,7 @@ s.listen(5)
 def index():
   return render_template('index.html')
 
-@app.route('/my-link/', methods = ['POST', 'GET'])
+@app.route('/my-link/')
 def my_link():
   while True:
      response = os.system('ping -n 4 192.168.229.170')
