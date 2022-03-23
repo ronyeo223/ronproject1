@@ -8,7 +8,9 @@ app = Flask(__name__)
 
 s =socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-s.bind((socket.gethostname(), 5001))
+hostname = socket.gethostname()
+dns_resolved_addr = socket.gethostbyname(hostname)
+s.bind((dns_resolved_addr, 5001))
 s.listen(5)
 
 
@@ -37,4 +39,3 @@ def my_link():
 if __name__ == '__main__':
   app.debug = True
   app.run(host="0.0.0.0")
-
