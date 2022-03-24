@@ -11,7 +11,7 @@ app = Flask(__name__)
 
 s =socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-s.bind(('23.22.144.165', 5000))
+s.bind(('192.168.229.170', 5000))
 s.listen(5)
 
 
