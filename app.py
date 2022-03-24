@@ -11,7 +11,7 @@ app = Flask(__name__)
 
 s =socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-s.bind(('192.168.229.170', 5000))
+s.bind(('172.20.10.2', 5000))
 s.listen(5)
 
 
@@ -22,7 +22,7 @@ def index():
 @app.route('/my-link/')
 def my_link():
 
-     response = os.system('ping -n 4 192.168.229.170')
+     response = os.system('ping -n 4 172.20.10.2')
      if "Received = 4":
             print(f"UP 192.168.229.170 Ping Successful")
             return 'Ping Successful'
