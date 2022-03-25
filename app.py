@@ -6,17 +6,17 @@ import os
 
 ip_list = ['192.168.229.170']
 app = Flask(__name__)
+async def handler(websocket, path):
  
-
-
-@app.route('/')
-async def index(websocket):
     data = await websocket.recv()
     reply = f"Data recieved as:  {data}!"
     await websocket.send(reply)
-    start_server = websockets.serve(index, "wss://certisproject1222222222.herokuapp.com/", 5000)
+    start_server = websockets.serve(handler, "192.168.229.170", 5000)
     await asyncio.Future()
-    return render_template('index.html')
+
+@app.route('/')
+def index():
+   return render_template('index.html')
 
 @app.route('/my-link/', methods = ["POST", "GET"])
 async def my_link():
@@ -34,3 +34,5 @@ async def my_link():
 if __name__ == '__main__':
   app.debug = True
   app.run(host="0.0.0.0")
+
+
