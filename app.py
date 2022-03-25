@@ -11,7 +11,7 @@ async def handler(websocket, path):
     data = await websocket.recv()
     reply = f"Data recieved as:  {data}!"
     await websocket.send(reply)
-    start_server = websockets.serve(handler, "192.168.229.170", 5000)
+    start_server = websockets.serve(handler, "wss://certisproject1222222222.herokuapp.com/", 5000)
     await asyncio.Future()
 
 @app.route('/')
