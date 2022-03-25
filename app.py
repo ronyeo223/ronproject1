@@ -18,8 +18,8 @@ async def main():
 
     async with websockets.serve(
         echo,
-        host="",
-        port=int(os.environ["PORT"]),
+        host="192.168.229.170",
+        port=int(os.environ["8000"]),
     ):
         await stop
 
