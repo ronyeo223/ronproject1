@@ -1,40 +1,31 @@
 import asyncio
-import websockets
-from flask import Flask, render_template, request
+import signal
 import os
 
-
-ip_list = ['192.168.229.170']
-app = Flask(__name__)
-async def handler(websocket, path):
- 
-    data = await websocket.recv()
-    reply = f"Data recieved as:  {data}!"
-    await websocket.send(reply)
-
-@app.route('/')
-def index():
-   return render_template('index.html')
-
-@app.route('/my-link/')
-async def my_link():
-       response = os.system('ping -n 4 192.168.229.170')
-       if "Received = 4":
-                start_server = websockets.serve(handler, "localhost", 5000)
-                await asyncio.Future()
-                print(f"UP 192.168.229.170 Ping Successful")
-                return 'Ping Successful'
-
-       else:
-                print(f"DOWN 192.168.229.170 Ping Unsuccessful")  
-                return 'Ping Unsuccessful'
+import websockets
 
 
+async def echo(websocket):
+    async for message in websocket:
+        await websocket.send(message)
 
-if __name__ == '__main__':
-  app.debug = True
-  app.run(host="0.0.0.0")
 
+async def main():
+    # Set the stop condition when receiving SIGTERM.
+    loop = asyncio.get_running_loop()
+    stop = loop.create_future()
+    loop.add_signal_handler(signal.SIGTERM, stop.set_result, None)
+
+    async with websockets.serve(
+        echo,
+        host="",
+        port=int(os.environ["PORT"]),
+    ):
+        await stop
+
+
+if __name__ == "__main__":
+    asyncio.run(main())
 
         
 
