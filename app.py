@@ -1,5 +1,4 @@
 
-from pythonping import ping
 from flask import Flask, render_template, request
 import os
 import asyncio
