@@ -1,4 +1,6 @@
 
+from tabnanny import verbose
+from pythonping import ping
 from flask import Flask, render_template, request
 import os
 import asyncio
@@ -14,8 +16,8 @@ def index():
 
 @app.route('/my-link/', methods = ["POST","GET"])
 def my_link():
-       response = os.system(f'ping -n 4 192.168.229.170')
-       if response == 0:
+       response = ping('192.168.229.170', verbose= True)
+       if response.rtt_avg_ms >= 0.07 :
                 print(f"UP 192.168.229.170 Ping Successful")
                 
                 return 'Ping Successful'
