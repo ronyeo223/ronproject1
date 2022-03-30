@@ -2,13 +2,14 @@
 from tabnanny import verbose
 from pythonping import ping
 from flask import Flask, render_template, request
-import os
-import asyncio
-from websockets import serve
+import socket
+
 
 app = Flask(__name__)
 
-ip_list = ["192.168.229.170"]
+ip = "192.168.229.170"
+port = 5357
+msg = b"Hello World"
 
 @app.route('/')
 def index():
@@ -16,15 +17,10 @@ def index():
 
 @app.route('/my-link/', methods = ["POST","GET"])
 def my_link():
-       response = ping('192.168.229.170', verbose= True)
-       if response.rtt_avg_ms >= 0.07 :
-                print(f"UP 192.168.229.170 Ping Successful")
-                
-                return 'Ping Successful'
+   sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+   sock.sendto(msg,(ip, port))
+   return "pinginging"
 
-       else:
-                print(f"DOWN 192.168.229.170 Ping Unsuccessful")  
-                return 'Ping Unsuccessful'
 
 if __name__ == '__main__':
   app.debug = True
