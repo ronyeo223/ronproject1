@@ -9,9 +9,9 @@ ip_list = {"addr": "192.168.229.159"}
 def index():
    return render_template('index.html')
 
-@app.route('/mylink/<string:ping>', methods = ["POST", "GET"])
-def my_link(ping):
-   return {"pinged": ping}
+@app.route('/mylink/<string:ip_list>', methods = ["POST", "GET"])
+def my_link(ip_list):
+   return {"pinged": ip_list}
 
 
 
