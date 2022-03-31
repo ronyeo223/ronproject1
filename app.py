@@ -1,29 +1,22 @@
 
-from tabnanny import verbose
-from pythonping import ping
 from flask import Flask, render_template, request
-import socket
-
+from websockets import serve
 
 app = Flask(__name__)
 
-ip = "192.168.229.170"
-port = 5357
-msg = b"Hello World"
+ip_list = {"addr": "192.168.229.159"}
 
 @app.route('/')
 def index():
    return render_template('index.html')
 
-@app.route('/my-link/', methods = ["POST","GET"])
-def my_link():
-   sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-   sock.sendto(msg,(ip, port))
-   return "pinginging"
+@app.route('/mylink/<string:ping>', methods = ["POST"])
+def my_link(ping):
+   return {"pinged": ping}
+
 
 
 if __name__ == '__main__':
-  app.debug = True
-  app.run(host="0.0.0.0")
+    app.run(debug = True, host = "0.0.0.0")
 
 
