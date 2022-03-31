@@ -1,6 +1,5 @@
 
 from flask import Flask, render_template, request
-from websockets import serve
 
 app = Flask(__name__)
 
@@ -10,7 +9,7 @@ ip_list = {"addr": "192.168.229.159"}
 def index():
    return render_template('index.html')
 
-@app.route('/mylink/<string:ping>', methods = ["POST"])
+@app.route('/mylink/<string:ping>', methods = ["POST", "GET"])
 def my_link(ping):
    return {"pinged": ping}
 
