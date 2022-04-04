@@ -17,9 +17,7 @@ client = mqtt.Client()
 client.on_connect = on_connect
 client.on_message = on_message
 client.on_publish = on_publish
-client.username_pw_set("esznwayl","gqXdqVuApw95")
-client.connect("driver.cloudmqtt.com", 18626, 60)
-client.loop_forever()
+
 
 @app.route('/')
 def index():
