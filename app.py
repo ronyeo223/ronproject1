@@ -34,6 +34,9 @@ def my_link(ip_list):
 
 
 if __name__ == '__main__':
-    app.run(debug = True, host = "0.0.0.0")
+   client.username_pw_set("esznwayl","gqXdqVuApw95")
+   client.connect("driver.cloudmqtt.com", 18626, 60)
+   client.loop_forever()   
+   app.run(debug = True, host = "0.0.0.0")
 
 
