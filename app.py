@@ -20,16 +20,15 @@ client = mqtt.Client()
 
 @app.route('/')
 def index():
-
-   return render_template('index.html')
-
-@app.route('/mylink/<string:ip_list>', methods = ["GET"])
-def my_link(ip_list):
    client.on_connect = on_connect
    client.on_message = on_message
    client.on_publish = on_publish 
    client.username_pw_set("esznwayl","gqXdqVuApw95")
    client.connect("driver.cloudmqtt.com", 18626, 60)
+   return render_template('index.html')
+
+@app.route('/mylink/<string:ip_list>', methods = ["GET"])
+def my_link(ip_list):
    client.loop_start
    client.publish("$SYS/ping", "Hello World", qos = 1)
    client.loop_stop
@@ -39,5 +38,3 @@ def my_link(ip_list):
 
 if __name__ == '__main__':
    app.run(debug = True, host = "0.0.0.0")
-
-
