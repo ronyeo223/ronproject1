@@ -1,5 +1,6 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, flash, request
 import paho.mqtt.client as mqtt
+import requests
 
 app = Flask(__name__)
 
@@ -17,42 +18,40 @@ def on_message(client, userdata, msg):
 
 def on_publish(client, userdata, mid):
     print("mid: "+str(mid))
-
-
 client = mqtt.Client()
+client.on_connect = on_connect
+client.on_message = on_message
+client.on_publish = on_publish 
+client.username_pw_set("esznwayl","gqXdqVuApw95")
+client.connect("driver.cloudmqtt.com", 18626, 60)
 
 
-@app.route('/')
-def index():
+@app.route("/")
+def route():
+   return render_template("index.html")
 
-   client.on_connect = on_connect
-   client.on_message = on_message
-   client.on_publish = on_publish 
-   client.username_pw_set("esznwayl","gqXdqVuApw95")
-   client.connect("driver.cloudmqtt.com", 18626, 60)
-   return render_template('index.html')
 
-@app.route('/mylink/<string:dire>', methods = ["GET"])
-def my_link1(dire):
+@app.route("/<string:dire>")
+def start(dire):
    client.loop_start
-   if dire == "dire1":
+   if dire == "Forward":
       client.publish("$SYS/direction", "Forward", qos = 1)
    
-   elif dire == "dire2":
+   elif dire == "Left":
       client.publish("$SYS/direction", "Left", qos = 1)
 
-   elif dire == "dire3":
+   elif dire == "Back":
       client.publish("$SYS/direction", "Back", qos = 1)
 
-   elif dire == "dire4":
+   elif dire == "Right":
       client.publish("$SYS/direction", "Right", qos = 1)
 
    client.loop_stop
-   return direction[dire]
-
+   return render_template("index.html")
 
 
 
 if __name__ == '__main__':
    app.run(debug = True, host = "0.0.0.0")
+
 
