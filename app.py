@@ -2,13 +2,12 @@ from flask import Flask, render_template
 import paho.mqtt.client as mqtt
 
 
-
 app = Flask(__name__)
 
 global y
-y = 0
+y = 166
 global x
-x = 0
+x = 350
 
 direction = {"dire1" : "Up",
              "dire2" : "Left",
@@ -28,13 +27,13 @@ client = mqtt.Client()
 client.on_connect = on_connect
 client.on_message = on_message
 client.on_publish = on_publish 
-client.username_pw_set("esznwayl","gqXdqVuApw95")
 client.connect("broker.emqx.io", 1883)
 
 
 @app.route("/")
 def route():
-   client.publish("$SYS/robot", "Dock", qos = 1)
+   client.publish("test/robot", "Dock", qos = 1)
+   client.subscribe("test/robotlocal")
    return render_template("index.html")
 
 
@@ -47,23 +46,23 @@ def start(dire):
    client.loop_start
    if dire == "Up":
       y += n
-      client.publish("$SYS/direction", "Up", qos = 1)
-      client.publish("$SYS/robot",f"x = {x}, y = {y}" )
+      client.publish("test/direction", "Up", qos = 1)
+      client.publish("test/robot",f"x = {x}, y = {y}" )
 
    elif dire == "Left":
       x -= n
-      client.publish("$SYS/direction", "Left", qos = 1)
-      client.publish("$SYS/robot",f"x = {x}, y = {y}" )
+      client.publish("test/direction", "Left", qos = 1)
+      client.publish("test/robot",f"x = {x}, y = {y}" )
 
    elif dire == "Down":
       y -= n
-      client.publish("$SYS/direction", "Down", qos = 1)
-      client.publish("$SYS/robot",f"x = {x}, y = {y}" )
+      client.publish("test/direction", "Down", qos = 1)
+      client.publish("test/robot",f"x = {x}, y = {y}" )
 
    elif dire == "Right":
       x += n
-      client.publish("$SYS/direction", "Right", qos = 1)
-      client.publish("$SYS/robot",f"x = {x}, y = {y}" )
+      client.publish("test/direction", "Right", qos = 1)
+      client.publish("test/robot",f"x = {x}, y = {y}" )
 
 
    client.loop_stop
@@ -74,6 +73,4 @@ def start(dire):
 
 if __name__ == '__main__':
    app.run(debug = True, host = "0.0.0.0")
-
-
 
