@@ -7,24 +7,31 @@
         Test
     </title> 
     <meta charset=utf-8> 
+    <style>
+      .robot {
+        position: absolute;
+        top: 166px;
+        left: 350px;
+        max-width:100%;
+        
+      }
+    </style>
     <script>
-
-
 
 function loadDoc() {
                 var xhttp = new XMLHttpRequest();
                  xhttp.onreadystatechange = function() {
            if (this.readyState == 4 && this.status == 200) {
-                 document.getElementById("Forward").innerHTML = "Moving Forward";
+                 document.getElementById("Forward").innerHTML = "Moving Up";
     }
   };
-                 xhttp.open("GET", "Forward", true);
+                 xhttp.open("GET", "Up", true);
   xhttp.send("Forward");
 }
 
 
 
-function Left() {
+function left() {
                 var xhttp = new XMLHttpRequest();
                  xhttp.onreadystatechange = function() {
            if (this.readyState == 4 && this.status == 200) {
@@ -37,20 +44,20 @@ function Left() {
 
 
 
-function Back() {
+function down() {
                 var xhttp = new XMLHttpRequest();
                  xhttp.onreadystatechange = function() {
            if (this.readyState == 4 && this.status == 200) {
-                 document.getElementById("Forward").innerHTML = "Moving Back";
+                 document.getElementById("Forward").innerHTML = "Moving Down";
     }
   };
-                 xhttp.open("GET", "Back", true);
+                 xhttp.open("GET", "Down", true);
   xhttp.send();
 }
 
 
 
-function Right() {
+function right() {
                 var xhttp = new XMLHttpRequest();
                  xhttp.onreadystatechange = function() {
            if (this.readyState == 4 && this.status == 200) {
@@ -60,10 +67,78 @@ function Right() {
                  xhttp.open("GET", "Right", true);
   xhttp.send();
 }
-    </script>
-       
+</script>
+<script>
+  function move_imgright() {
+  var step=25; // change this to different step value
+  var y=document.getElementById('i1').offsetLeft; 
+  y= y + step;
+  document.getElementById('i1').style.left= y + "px";
+
+        }
+</script>
 
 
+<script>
+  function move_imgback() {
+  var step=25; // change this to different step value
+  var x=document.getElementById('i1').offsetTop;
+  x= x + step;
+  document.getElementById('i1').style.top= x + "px";
+
+  }
+  </script>
+
+
+<script>
+  function move_imgup() {
+  var step=25; // change this to different step value
+  var x=document.getElementById('i1').offsetTop;
+  x= x - step;
+  document.getElementById('i1').style.top= x + "px";
+  
+
+  }
+</script>
+
+
+<script>
+  function move_imgleft() {
+  var step=25; // change this to different step value
+  var y=document.getElementById('i1').offsetLeft;
+  y= y - step;
+  document.getElementById('i1').style.left= y + "px";
+
+  }
+</script>
+<script>
+  var y = 
+</script>
+
+        <script>
+          function moveright(){
+            move_imgright();
+            right();
+          }
+        </script>
+        <script>
+          function moveup(){
+            move_imgup();
+            loadDoc();
+          }
+        </script>
+        <script>
+          function moveleft(){
+            move_imgleft();
+            left();
+          }
+        </script>
+         <script>
+        function movedown(){
+         move_imgback();
+             down();
+                          }
+                        </script>
 </head>
 
     <body>
@@ -73,29 +148,31 @@ function Right() {
 
             <form action= "/dire1" method = get style="display : inline">
             <center>
-                    <button name = "Forward" type="button" value="Forward" onclick="loadDoc()">Forward</button>
+                    <button onclick="moveup()" name = "Forward" type="button" value="Forward">up</button>
                     
             </center>
             </form>
             <center>
             <form action= "/dire2" method = get style="display : inline">
             
-                    <button type="button" value="Left" onclick = "Left()">Left</button>
+                    <button onclick="moveleft()" type="button" value="Left" >Left</button>
             </form>
             
             <form action= "/dire3" method = get style="display : inline" >
-                    <button type="button" value="Back" onclick = "Back()">Back</button>
+                    <button onclick="movedown()"  type="button" value="Back">down</button>
             </form>
 
             <form action= "/dire4" method = get style="display : inline" >  
-                    <button type="button" value="Right" onclick = "Right()">Right</button>
+                    <button onclick="moveright()"  type="button" value="Right">Right</button>
             </center>
             </form>
-            <center><p id = "Forward"></p></center>
-        
+
+
 
     </body>
-
+    <img class= "robot" src="{{url_for('static', filename='robot.png')}}" id='i1' width="25" height="25">
+          <center><img src="{{url_for('static', filename='routepng.png')}}" width="1000" height="500" /></center>
+          <center><p id = "Forward"></p></center>
 
 </html>
 
